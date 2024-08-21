@@ -6,6 +6,7 @@
 #include <openssl/evp.h> // provide high level Envelope interface for cryptographic operations .
 #include <openssl/sha.h> // provide SHA-256 function .
 #include <openssl/aes.h> // provide AES : Advanced Encryption Standard function .
+#include <openssl/rand.h> // provide rnad bytes function 
 
 
 
