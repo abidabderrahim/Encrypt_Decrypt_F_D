@@ -140,9 +140,9 @@ int main() {
     char path[256];
     unsigned char key[SHA256_DIGEST_LENGTH];
 
-    printf("Choose an option:\n");
     printf("1. Encrypt\n");
     printf("2. Decrypt\n");
+    printf("Choose an option: ");
     scanf("%d", &choice);
     printf("Enter file or directory path: ");
     scanf("%s", path);
