@@ -131,15 +131,15 @@ int main(){
 	char path[256];
 	unsigned char key[SHA256_DIGEST_LENGTH];
 
-	printf("Choose an option:\n");
 	printf("1 . Encrypt\n");
 	printf("2 . Decrypt\n");
+	printf("Choose an option : ");
 	scanf("%d", &choice);
 	printf("Enter File or Directory Path : ");
 	scanf("%s", path);
 
 	char password[256];
-	printf("Enter Password");
+	printf("Enter Password : ");
 	scanf("%s", password);
 	generate_key(password, key);
 
