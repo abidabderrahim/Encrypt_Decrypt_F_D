@@ -53,6 +53,10 @@ void encrypt_file(const char *filename, const unsigned char *key){
 	EVP_CIPHER_CTX_free(ctx);
 	fclose(infile);
 	fclose(outfile);
+
+	if (remove(filename) != 0) {
+		perror("Error removing the original file");
+	}
 }
 
 void decrypt_file(const char *filename, const unsigned char *key){
@@ -93,6 +97,10 @@ void decrypt_file(const char *filename, const unsigned char *key){
 	EVP_CIPHER_CTX_free(ctx);
 	fclose(infile);
 	fclose(outfile);
+
+	if (remove(filename) != 0) {
+		perror("Error removing the encrypted file");
+	}
 }
 
 void process_directory(const char *dir_path, const unsigned char *key, int encrypt){
