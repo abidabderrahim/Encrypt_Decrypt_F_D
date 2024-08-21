@@ -127,30 +127,39 @@ void generate_key(const char *password, unsigned char *key){
 	SHA256((unsigned char*)password, strlen(password), key);
 }
 
-int main(){
-	int choice;
-	char path[256];
-	unsigned char key[SHA256_DIGEST_LENGTH];
+int main() {
+    int choice;
+    char path[256];
+    unsigned char key[SHA256_DIGEST_LENGTH];
 
-	printf("1 . Encrypt\n");
-	printf("2 . Decrypt\n");
-	printf("Choose an option : ");
-	scanf("%d", &choice);
-	printf("Enter File or Directory Path : ");
-	scanf("%s", path);
+    printf("Choose an option:\n");
+    printf("1. Encrypt\n");
+    printf("2. Decrypt\n");
+    scanf("%d", &choice);
+    printf("Enter file or directory path: ");
+    scanf("%s", path);
 
-	char password[256];
-	printf("Enter Password : ");
-	scanf("%s", password);
-	generate_key(password, key);
+    char password[256];
+    printf("Enter password: ");
+    scanf("%s", password);
+    generate_key(password, key);
 
-	if(choice == 1){
-		process_directory(path, key, 1);
-	}else if(choice == 2){
-		process_directory(path, key, 0);
-	}else{
-		printf("Invalid Choice\n");
-	}
+    struct stat path_stat;
+    stat(path, &path_stat);
 
-	return 0;
+    if (S_ISDIR(path_stat.st_mode)) {
+        process_directory(path, key, choice == 1);
+    } else if (S_ISREG(path_stat.st_mode)) {
+        if (choice == 1) {
+            encrypt_file(path, key);
+        } else if (choice == 2) {
+            decrypt_file(path, key);
+        } else {
+            printf("Invalid choice\n");
+        }
+    } else {
+        printf("Invalid file or directory\n");
+    }
+
+    return 0;
 }
