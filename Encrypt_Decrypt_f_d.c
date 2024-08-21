@@ -63,7 +63,7 @@ void decrypt_file(const char *filename, const unsigned char *key){
 
 	char out_filename[512];
 	snprintf(out_filename, sizeof(out_filename) - 4, "%s", filename);
-	out_filename[strlen(out_fillename) - 4] = '\0';
+	out_filename[strlen(out_filename) - 4] = '\0';
 	FILE *outfile = fopen(out_filename, "wb");
 	if(outfile == NULL){
 		perror("Faild To Open File .");
@@ -87,7 +87,7 @@ void decrypt_file(const char *filename, const unsigned char *key){
 	}
 
 	EVP_DecryptFinal_ex(ctx, plaintext, &plaintext_len);
-	fwrite(plaintext, 1, plaintexr_len, outfile);
+	fwrite(plaintext, 1, plaintext_len, outfile);
 
 	EVP_CIPHER_CTX_free(ctx);
 	fclose(infile);
@@ -113,7 +113,7 @@ void process_directory(const char *dir_path, const unsigned char *key, int encry
 			process_directory(full_path, key, encrypt);
 		}else{
 			if(encrypt){
-				encrypt_file(fulll_path, key);
+				encrypt_file(full_path, key);
 			}else{
 				decrypt_file(full_path, key);
 			}
@@ -129,7 +129,7 @@ void generate_key(const char *password, unsigned char *key){
 int main(){
 	int choice;
 	char path[2566];
-	unsigned char key[SHA25-_DIGEST_LENGTH];
+	unsigned char key[SHA25_DIGEST_LENGTH];
 
 	printf("Choose an option:\n");
 	printf("1 . Encrypt\n");
