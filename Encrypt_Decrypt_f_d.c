@@ -128,8 +128,8 @@ void generate_key(const char *password, unsigned char *key){
 
 int main(){
 	int choice;
-	char path[2566];
-	unsigned char key[SHA25_DIGEST_LENGTH];
+	char path[256];
+	unsigned char key[SHA256_DIGEST_LENGTH];
 
 	printf("Choose an option:\n");
 	printf("1 . Encrypt\n");
